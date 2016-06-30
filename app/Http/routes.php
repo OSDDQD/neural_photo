@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::post('/upload', [
+    'as' => 'image.upload',
+    'uses' => '\App\Http\Controllers\ImageController@store'
+]);
+
+Route::get('/image/{id}', [
+    'as' => 'image.show',
+    'uses' => '\App\Http\Controllers\ImageController@show'
+])->where('id', '[0-9]+');
