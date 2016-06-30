@@ -71,7 +71,7 @@ class GenerateImage extends Job implements ShouldQueue
             ->getProcess();
 
         try {
-            $builder->mustRun();
+            $builder->run();
 
             if ($builder->isSuccessful()) {
                 $this->image->is_done = 1;
