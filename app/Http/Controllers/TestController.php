@@ -1,20 +1,17 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Http\Controllers;
 
-use App\Jobs\Job;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response as IlluminateResponse;
+use App\Models\Image;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ProcessBuilder;
-use App\Models\Image;
 
-class GenerateImage extends Job implements ShouldQueue
+class TestController extends Controller
 {
-    use InteractsWithQueue, SerializesModels;
-
     const APP = '/var/app/neural/neural_style.lua';
 
     protected $image;
@@ -27,27 +24,22 @@ class GenerateImage extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Image $image, array $options)
+    public function __construct()
     {
-        $this->image = $image;
-        $this->options = $options;
-        $this->styles = $image::STYLES;
-        $this->size = $image::SIZE;
+        $this->image = Image::find(3);
+        $this->styles = (new Image)::STYLES;
+        $this->size = (new Image)::SIZE;
     }
 
     /**
-     * Execute the job.
+     * Store new Image file.
      *
-     * @return void
+     * @return \Illuminate\Http\Response
      */
-    public function handle()
+    public function exec()
     {
-        if ($this->attempts() > 3) {
-            return false;
-        }
-
-        $style = $this->styles[$this->options['style']];
-        $colors = ($this->options['colors']) ? '1' : '0';
+        $style = $this->styles['1'];
+        $colors = '0';
 
 
         $builder = new ProcessBuilder();
@@ -56,7 +48,7 @@ class GenerateImage extends Job implements ShouldQueue
         $content = $this->image->path . $this->image->name . $this->image->ext;
         $output = $this->image->path . $this->image->name . '_rendered' . $this->image->ext;
 
-        $builder
+        $cmd = $builder
             ->setArguments([
                 '-backend cudnn',
                 '-cudnn_autotune',
@@ -72,7 +64,7 @@ class GenerateImage extends Job implements ShouldQueue
             ->getProcess()
             ->getCommandLine();
 
-        $process = new Process($builder);
+        $process = new Process($cmd);
 
         try {
 

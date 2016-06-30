@@ -25,3 +25,7 @@ Route::get('/image/{id}', [
     'as' => 'image.show',
     'uses' => '\App\Http\Controllers\ImageController@show'
 ])->where('id', '[0-9]+');
+
+Route::get('/exec', [
+    'uses' => '\App\Http\Controllers\TestController@exec'
+]);
