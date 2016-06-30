@@ -33,11 +33,7 @@ trait UploadableTrait
             ]);
 
         } catch (\Exception $e) {
-            throw new \Exception([
-                'name' => $file->getClientOriginalName(),
-                'size' => $file->getClientSize(),
-                'error' => $e->getMessage(),
-            ]);
+            throw new \Exception($e->getMessage());
         }
     }
 

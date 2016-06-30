@@ -46,7 +46,7 @@ class ImageController extends Controller
         $image = new Image();
 
         try {
-            $file = $image->uploadFile($request->get('image'));
+            $file = $image->uploadFile($request->file('image'));
 
             $options = [
                 'colors' => ($request->exists('colors')) ? true : false,
@@ -61,7 +61,9 @@ class ImageController extends Controller
                 ])
             ]);
         } catch (\Exception $e) {
-            return response()->json($e->getMessage(), IlluminateResponse::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json([
+                'message' => $e->getMessage()
+            ], IlluminateResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

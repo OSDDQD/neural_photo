@@ -38,7 +38,11 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <form action="{{ route('image.upload') }}" method="post" enctype="multipart/form-data">
+                    <input type="file" name="image" />
+                    <input type="hidden" value="1" name="style" />
+                    <input type="submit">
+                </form>
             </div>
         </div>
     </body>

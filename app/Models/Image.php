@@ -39,7 +39,7 @@ class Image extends Eloquent
     private $upload_dir = 'photo';
 
     const STYLES = [
-        '1' => '1.jpg',
+        '1' => '/var/app/neural/styles/12.jpg',
         '2' => '2.jpg',
         '3' => '3.jpg'
     ];

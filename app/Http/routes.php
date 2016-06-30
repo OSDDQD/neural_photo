@@ -11,6 +11,11 @@
 |
 */
 
+Route::get('/test', function ()
+{
+    return view('welcome');
+});
+
 Route::post('/upload', [
     'as' => 'image.upload',
     'uses' => '\App\Http\Controllers\ImageController@store'

@@ -19,6 +19,7 @@ class GenerateImage extends Job implements ShouldQueue
     protected $image;
     protected $options;
     protected $styles;
+    protected $size;
 
     /**
      * Create a new job instance.
@@ -30,6 +31,7 @@ class GenerateImage extends Job implements ShouldQueue
         $this->image = $image;
         $this->options = $options;
         $this->styles = $image::STYLES;
+        $this->size = $image::SIZE;
     }
 
     /**
@@ -44,6 +46,8 @@ class GenerateImage extends Job implements ShouldQueue
         }
 
         $style = $this->styles[$this->options['style']];
+        $colors = ($this->options['colors']) ? '1' : '0';
+
 
         $builder = new ProcessBuilder();
         $builder->setPrefix('th ' . $this::APP);
@@ -60,7 +64,9 @@ class GenerateImage extends Job implements ShouldQueue
                 '-output_image ' . $output,
                 '-num_iterations 400',
                 '-gpu 0',
-                '-save_iter 0'
+                '-save_iter 0',
+                '-original_colors ' . $colors,
+                '-image_size ' . $this->size
             ])
             ->getProcess();
 
@@ -73,7 +79,7 @@ class GenerateImage extends Job implements ShouldQueue
             }
 
         } catch (ProcessFailedException $e) {
-            return $e->getMessage();
+            throw new \Exception ($e->getMessage());
         }
 
     }
