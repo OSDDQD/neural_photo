@@ -15,7 +15,19 @@ trait UploadableTrait
         $name = $this->generateName();
         $path = $this->upload_dir . '/' . Carbon::now()->format('Y/m/d') . '/';
 
-        $fullpath = $path.$name.$file->getExtension();
+        $ext = '.jpg';
+
+        switch($file->getClientMimeType()) {
+            case 'image/jpeg':
+                $ext = '.jpg';
+                break;
+
+            case 'image/png':
+                $ext = '.png';
+                break;
+        }
+
+        $fullpath = $path.$name.$ext;
 
         try {
             Storage::put($fullpath, File::get($file));
@@ -24,7 +36,7 @@ trait UploadableTrait
                 'path' => $path,
                 'name' => $name,
                 'size' => $file->getClientSize(),
-                'ext' => $file->getExtension(),
+                'ext' => $ext,
                 'type' => $file->getClientMimeType(),
             ]);
 
