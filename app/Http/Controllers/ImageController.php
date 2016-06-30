@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response as IlluminateResponse;
 use App\Models\Image;
 use App\Jobs\GenerateImage;
-use Illuminate\Queue\Queue;
+use Illuminate\Contracts\Queue;
 
 class ImageController extends Controller
 {
@@ -55,7 +55,7 @@ class ImageController extends Controller
             ];
 
             // add task to queue
-            Queue::push(new GenerateImage(Image::find($file), $options));
+            $this->dispatch(new GenerateImage(Image::find($file), $options));
 
             return response()->json([
                 'url' => route('image.show', [
