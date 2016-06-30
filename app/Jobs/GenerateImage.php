@@ -55,24 +55,33 @@ class GenerateImage extends Job implements ShouldQueue
         $content = $this->image->path . $this->image->name . $this->image->ext;
         $output = $this->image->path . $this->image->name . '_rendered' . $this->image->ext;
 
-        try {
-            $builder
-                ->setArguments([
-                    '-backend cudnn',
-                    '-cudnn_autotune',
-                    '-style_image ' . $style,
-                    '-content_image ' . $content,
-                    '-output_image ' . $output,
-                    '-num_iterations 400',
-                    '-gpu 0',
-                    '-save_iter 0',
-                    '-original_colors ' . $colors,
-                    '-image_size ' . $this->size
-                ])
-                ->getProcess()
-                ->run();
+        $builder
+            ->setArguments([
+                '-backend cudnn',
+                '-cudnn_autotune',
+                '-style_image ' . $style,
+                '-content_image ' . $content,
+                '-output_image ' . $output,
+                '-num_iterations 400',
+                '-gpu 0',
+                '-save_iter 0',
+                '-original_colors ' . $colors,
+                '-image_size ' . $this->size
+            ])
+            ->getProcess()
+            ->getCommandLine();
 
-            if ($builder->isSuccessful()) {
+        $process = new Process($builder);
+
+        try {
+
+            $process->start();
+
+            while ($process->isRunning()) {
+                // waiting for process to finish
+            }
+
+            if ($process->isSuccessful()) {
                 $this->image->is_done = 1;
                 $this->image->save();
             }
