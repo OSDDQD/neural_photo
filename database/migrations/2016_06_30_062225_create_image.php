@@ -17,7 +17,6 @@ class CreateImage extends Migration
             $table->string('ext');
             $table->string('path');
             $table->string('name');
-            $table->string('rendered');
             $table->tinyInteger('is_done')->default(0);
             $table->timestamps();
         });
