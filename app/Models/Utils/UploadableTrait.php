@@ -29,9 +29,7 @@ trait UploadableTrait
             ]);
 
             if($file) {
-                return response()->json([
-                    'id' => $file->id
-                ]);
+                return $file->id;
             }
 
         } catch (\Exception $e) {

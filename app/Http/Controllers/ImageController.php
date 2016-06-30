@@ -53,11 +53,11 @@ class ImageController extends Controller
                 'style' => $request->get('style')
             ];
 
-            $this->dispatch(new GenerateImage(Image::find($file->id), $options));
+            $this->dispatch(new GenerateImage(Image::find($file), $options));
 
             return response()->json([
                 'url' => route('image.show', [
-                    'id' => $file->id
+                    'id' => $file
                 ])
             ]);
         } catch (\Exception $e) {
