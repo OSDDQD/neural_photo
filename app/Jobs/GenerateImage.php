@@ -75,7 +75,13 @@ class GenerateImage extends Job implements ShouldQueue
 
         try {
 
-            $process->start();
+            $process->run(function ($type, $buffer) {
+                if (Process::ERR === $type) {
+                    echo 'ERR > '.$buffer;
+                } else {
+                    echo 'OUT > '.$buffer;
+                }
+            });
 
             while ($process->isRunning()) {
                 // waiting for process to finish
