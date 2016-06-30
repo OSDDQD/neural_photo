@@ -28,9 +28,11 @@ trait UploadableTrait
                 'type' => $file->getClientMimeType(),
             ]);
 
-            return response()->json([
-                'id' => $file->id
-            ]);
+            if($file) {
+                return response()->json([
+                    'id' => $file->id
+                ]);
+            }
 
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
