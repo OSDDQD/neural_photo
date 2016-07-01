@@ -67,13 +67,10 @@ class GenerateImage extends Job implements ShouldQueue
                 // waiting for process to finish
             }
 
-            $this->image->is_done = 1;
-            $this->image->save();
-
-//            if ($process->isSuccessful()) {
-//                $this->image->is_done = 1;
-//                $this->image->save();
-//            }
+            if(file_exists($output)) {
+                $this->image->is_done = 1;
+                $this->image->save();
+            }
 
             chdir($path);
 
