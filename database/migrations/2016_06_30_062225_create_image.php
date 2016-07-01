@@ -16,6 +16,7 @@ class CreateImage extends Migration
             $table->increments('id');
             $table->string('ext');
             $table->string('path');
+            $table->string('relative_path');
             $table->string('name');
             $table->integer('size');
             $table->string('type');

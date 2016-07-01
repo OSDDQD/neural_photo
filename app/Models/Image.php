@@ -17,7 +17,7 @@ class Image extends Eloquent
      * @var array
      */
     protected $fillable = [
-        'is_done', 'type', 'size', 'path', 'name', 'ext'
+        'is_done', 'type', 'size', 'path', 'name', 'ext', 'relative_path'
     ];
 
     /**
