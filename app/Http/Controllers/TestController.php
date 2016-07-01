@@ -24,7 +24,7 @@ class TestController extends Controller
      */
     public function __construct()
     {
-        $this->image = Image::find(3);
+        $this->image = Image::find(1);
         $this->styles = (new Image)::STYLES;
         $this->size = (new Image)::SIZE;
     }
@@ -61,20 +61,10 @@ class TestController extends Controller
 //            ])
 //            ->getProcess()
 //            ->getCommandLine();
-        $cmd = $this::APP . '
-            -backend cudnn
-            -cudnn_autotune
-            -style_image ' . $style
-            . ' -content_image ' . $content
-            . ' -output_image ' . $output
-            . ' -num_iterations 400
-            -gpu 0
-            -save_iter 0'
-            . ' -original_colors ' . $colors
-            . ' -image_size ' . $this->size;
+        $cmd = './neu.sh ' . $style . ' ' . $content . ' ' . $output . ' ' . $this->size . ' ' . $colors;
 
         putenv("SHELL=/bin/bash");
-        $process = new Process('./neu.sh');
+        $process = new Process($cmd);
 
         try {
 

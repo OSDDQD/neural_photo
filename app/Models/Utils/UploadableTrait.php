@@ -33,7 +33,7 @@ trait UploadableTrait
             Storage::put($fullpath, File::get($file));
 
             $file = $this->create([
-                'path' => $path,
+                'path' => public_path('files/'.$path),
                 'name' => $name,
                 'size' => $file->getClientSize(),
                 'ext' => $ext,

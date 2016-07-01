@@ -29,3 +29,8 @@ Route::get('/image/{id}', [
 Route::get('/exec', [
     'uses' => '\App\Http\Controllers\TestController@exec'
 ]);
+
+Route::get('/path', function()
+{
+   return public_path('files'.'/test');
+});
