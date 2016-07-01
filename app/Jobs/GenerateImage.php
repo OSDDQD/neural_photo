@@ -15,8 +15,6 @@ class GenerateImage extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
-    const APP = '/var/app/neural/neural_style.lua';
-
     protected $image;
     protected $options;
     protected $styles;
@@ -56,22 +54,9 @@ class GenerateImage extends Job implements ShouldQueue
         $content = $this->image->path . $this->image->name . $this->image->ext;
         $output = $this->image->path . $this->image->name . '_rendered' . $this->image->ext;
 
-        $cmd = $builder
-            ->setArguments([
-                '-backend cudnn',
-                '-cudnn_autotune',
-                '-style_image ' . $style,
-                '-content_image ' . $content,
-                '-output_image ' . $output,
-                '-num_iterations 400',
-                '-gpu 0',
-                '-save_iter 0',
-                '-original_colors ' . $colors,
-                '-image_size ' . $this->size
-            ])
-            ->getProcess()
-            ->getCommandLine();
+        $cmd = './neu.sh ' . $style . ' ' . $content . ' ' . $output . ' ' . $this->size . ' ' . $colors;
 
+        putenv("SHELL=/bin/bash");
         $process = new Process($cmd);
 
         try {
