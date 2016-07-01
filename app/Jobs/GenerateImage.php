@@ -54,7 +54,6 @@ class GenerateImage extends Job implements ShouldQueue
         $process = new Process($cmd);
 
         try {
-
             $process->run(function ($type, $buffer) {
                 if (Process::ERR === $type) {
                     echo 'ERR > '.$buffer;
@@ -62,10 +61,6 @@ class GenerateImage extends Job implements ShouldQueue
                     echo 'OUT > '.$buffer;
                 }
             });
-
-            while ($process->isRunning()) {
-                // waiting for process to finish
-            }
 
             if(file_exists($output)) {
                 $this->image->is_done = 1;
@@ -75,7 +70,7 @@ class GenerateImage extends Job implements ShouldQueue
             chdir($path);
 
         } catch (ProcessFailedException $e) {
-            throw new \Exception ($e->getMessage());
+            echo $e->getMessage();
         }
 
     }
