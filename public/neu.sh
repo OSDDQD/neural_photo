@@ -14,7 +14,9 @@ export LD_LIBRARY_PATH=/usr/local/cuda-7.5/lib64:$LD_LIBRARY_PATH
 echo "Go to app dir"
 cd $appdir
 
-echo "Init convertation with file: $content"
+echo "Init generate image with file: $content"
 
 /home/slowpoked/torch/install/bin/th neural_style.lua -style_image $style -content_image $content -output_image $output -image_size $size -num_iterations 400 -backend cudnn -cudnn_autotune -save_iter 0 -print_iter 0
 
+echo "Generate finished: $output"
+return 1
