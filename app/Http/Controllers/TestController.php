@@ -10,7 +10,7 @@ use Symfony\Component\Process\ProcessBuilder;
 
 class TestController extends Controller
 {
-    const APP = '/home/slowpoked/torch/install/bin/th /var/app/neural/neural_style.lua';
+    const APP = '/home/slowpoked/torch/install/bin/th neural_style.lua';
 
     protected $image;
     protected $options;
@@ -46,23 +46,35 @@ class TestController extends Controller
         $content = $this->image->path . $this->image->name . $this->image->ext;
         $output = $this->image->path . $this->image->name . '_rendered' . $this->image->ext;
 
-        $cmd = $builder
-            ->setArguments([
-                '-backend cudnn',
-                '-cudnn_autotune',
-                '-style_image ' . $style,
-                '-content_image ' . $content,
-                '-output_image ' . $output,
-                '-num_iterations 400',
-                '-gpu 0',
-                '-save_iter 0',
-                '-original_colors ' . $colors,
-                '-image_size ' . $this->size
-            ])
-            ->getProcess()
-            ->getCommandLine();
+//        $cmd = $builder
+//            ->setArguments([
+//                '-backend cudnn',
+//                '-cudnn_autotune',
+//                '-style_image ' . $style,
+//                '-content_image ' . $content,
+//                '-output_image ' . $output,
+//                '-num_iterations 400',
+//                '-gpu 0',
+//                '-save_iter 0',
+//                '-original_colors ' . $colors,
+//                '-image_size ' . $this->size
+//            ])
+//            ->getProcess()
+//            ->getCommandLine();
+        $cmd = $this::APP . '
+            -backend cudnn
+            -cudnn_autotune
+            -style_image ' . $style
+            . ' -content_image ' . $content
+            . ' -output_image ' . $output
+            . ' -num_iterations 400
+            -gpu 0
+            -save_iter 0'
+            . ' -original_colors ' . $colors
+            . ' -image_size ' . $this->size;
 
-        $process = new Process($cmd);
+        putenv("SHELL=/bin/bash");
+        $process = new Process('./neu.sh');
 
         try {
 
