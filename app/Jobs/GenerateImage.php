@@ -8,7 +8,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\ProcessBuilder;
 use App\Models\Image;
 
 class GenerateImage extends Job implements ShouldQueue
@@ -46,10 +45,6 @@ class GenerateImage extends Job implements ShouldQueue
 
         $style = $this->styles[$this->options['style']];
         $colors = ($this->options['colors']) ? '1' : '0';
-
-
-        $builder = new ProcessBuilder();
-        $builder->setPrefix('th ' . $this::APP);
 
         $content = $this->image->path . $this->image->name . $this->image->ext;
         $output = $this->image->path . $this->image->name . '_rendered' . $this->image->ext;
