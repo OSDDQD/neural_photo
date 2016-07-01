@@ -49,6 +49,9 @@ class GenerateImage extends Job implements ShouldQueue
         $content = $this->image->path . $this->image->name . $this->image->ext;
         $output = $this->image->path . $this->image->name . '_rendered' . $this->image->ext;
 
+        $path = getcwd();
+        chdir(public_path());
+
         $cmd = './neu.sh ' . $style . ' ' . $content . ' ' . $output . ' ' . $this->size . ' ' . $colors;
 
         putenv("SHELL=/bin/bash");
@@ -72,6 +75,8 @@ class GenerateImage extends Job implements ShouldQueue
                 $this->image->is_done = 1;
                 $this->image->save();
             }
+
+            chdir($path);
 
         } catch (ProcessFailedException $e) {
             throw new \Exception ($e->getMessage());
