@@ -38,12 +38,6 @@ class Image extends Eloquent
 
     private $upload_dir = 'photo';
 
-    const STYLES = [
-        '1' => '/var/app/neural/style/12.jpg',
-        '2' => '2.jpg',
-        '3' => '3.jpg'
-    ];
-
     const SIZE = '500';
 
     public static function boot()
@@ -53,5 +47,55 @@ class Image extends Eloquent
         static::deleting(function (Image $entity) {
             $entity->deleteFile($entity, false);
         });
+    }
+    
+    public function styles()
+    {
+        return [
+            '1' => [
+                'image' => resource_path('styles/1.jpg'),
+                'title' => 'Style #1'
+            ],
+            '2' => [
+                'image' => resource_path('styles/2.jpg'),
+                'title' => 'Style #2'
+            ],
+            '3' => [
+                'image' => resource_path('styles/3.jpg'),
+                'title' => 'Style #3'
+            ],
+            '4' => [
+                'image' => resource_path('styles/4.jpg'),
+                'title' => 'Style #4'
+            ],
+            '5' => [
+                'image' => resource_path('styles/5.jpg'),
+                'title' => 'Style #5'
+            ],
+            '6' => [
+                'image' => resource_path('styles/6.jpg'),
+                'title' => 'Style #6'
+            ],
+            '7' => [
+                'image' => resource_path('styles/7.jpg'),
+                'title' => 'Style #7'
+            ],
+            '8' => [
+                'image' => resource_path('styles/8.jpg'),
+                'title' => 'Style #8'
+            ],
+            '9' => [
+                'image' => resource_path('styles/9.jpg'),
+                'title' => 'Style #9'
+            ],
+            '10' => [
+                'image' => resource_path('styles/10.jpg'),
+                'title' => 'Style #10'
+            ],
+            '11' => [
+                'image' => resource_path('styles/11.jpg'),
+                'title' => 'Style #11'
+            ],
+        ];
     }
 }

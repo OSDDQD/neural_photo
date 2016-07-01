@@ -28,7 +28,7 @@ class GenerateImage extends Job implements ShouldQueue
     {
         $this->image = $image;
         $this->options = $options;
-        $this->styles = $image::STYLES;
+        $this->styles = $image->styles();
         $this->size = $image::SIZE;
     }
 
@@ -39,7 +39,7 @@ class GenerateImage extends Job implements ShouldQueue
      */
     public function handle()
     {
-        $style = $this->styles[$this->options['style']];
+        $style = $this->styles[$this->options['style']]['image'];
         $colors = ($this->options['colors']) ? '1' : '0';
 
         $content = $this->image->path . $this->image->name . $this->image->ext;

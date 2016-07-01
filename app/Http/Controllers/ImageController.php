@@ -11,6 +11,8 @@ use Illuminate\Contracts\Queue;
 
 class ImageController extends Controller
 {
+    protected $styles;
+
     /**
      * Create a new controller instance.
      *
@@ -19,6 +21,7 @@ class ImageController extends Controller
     public function __construct()
     {
 //        $this->middleware('auth');
+        $this->styles = (new Image)->styles();
     }
 
     /**
@@ -37,7 +40,7 @@ class ImageController extends Controller
 
         if (!$request->exists('style')
             || empty($request->get('style'))
-            || !array_key_exists($request->get('style'), Image::STYLES)) {
+            || !array_key_exists($request->get('style'), $this->styles)) {
             return response()->json([
                 'message' => "attribute_style_is_required",
                 'status_code' => IlluminateResponse::HTTP_BAD_REQUEST,
@@ -85,5 +88,12 @@ class ImageController extends Controller
                 'status' => 'in_queue'
             ]);
         }
+    }
+
+    public function styles()
+    {
+        return response()->json(
+            (new Image())->styles()
+        );
     }
 }
