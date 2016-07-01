@@ -77,7 +77,7 @@ class ImageController extends Controller
             if($image->is_done) {
                 return response()->json([
                     'status' => 'is_ready',
-                    'file' => public_path()
+                    'file' => url($image->relative_path)
                 ]);
             }
 

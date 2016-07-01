@@ -34,6 +34,7 @@ trait UploadableTrait
 
             $file = $this->create([
                 'path' => public_path('files/'.$path),
+                'relative_path' => $path,
                 'name' => $name,
                 'size' => $file->getClientSize(),
                 'ext' => $ext,
