@@ -39,10 +39,6 @@ class GenerateImage extends Job implements ShouldQueue
      */
     public function handle()
     {
-        if ($this->attempts() > 3) {
-            return false;
-        }
-
         $style = $this->styles[$this->options['style']];
         $colors = ($this->options['colors']) ? '1' : '0';
 
