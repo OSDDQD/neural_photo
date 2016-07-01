@@ -56,7 +56,7 @@ class GenerateImage extends Job implements ShouldQueue
         $content = $this->image->path . $this->image->name . $this->image->ext;
         $output = $this->image->path . $this->image->name . '_rendered' . $this->image->ext;
 
-        $builder
+        $cmd = $builder
             ->setArguments([
                 '-backend cudnn',
                 '-cudnn_autotune',
@@ -72,7 +72,7 @@ class GenerateImage extends Job implements ShouldQueue
             ->getProcess()
             ->getCommandLine();
 
-        $process = new Process($builder);
+        $process = new Process($cmd);
 
         try {
 

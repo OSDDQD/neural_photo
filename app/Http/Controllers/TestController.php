@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response as IlluminateResponse;
 use App\Models\Image;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -12,7 +10,7 @@ use Symfony\Component\Process\ProcessBuilder;
 
 class TestController extends Controller
 {
-    const APP = '/var/app/neural/neural_style.lua';
+    const APP = '/home/slowpoked/torch/install/bin/th /var/app/neural/neural_style.lua';
 
     protected $image;
     protected $options;
@@ -43,7 +41,7 @@ class TestController extends Controller
 
 
         $builder = new ProcessBuilder();
-        $builder->setPrefix('th ' . $this::APP);
+        $builder->setPrefix($this::APP);
 
         $content = $this->image->path . $this->image->name . $this->image->ext;
         $output = $this->image->path . $this->image->name . '_rendered' . $this->image->ext;
