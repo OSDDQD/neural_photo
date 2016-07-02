@@ -65,9 +65,9 @@ class GenerateImage extends Job implements ShouldQueue
                 }
             });
 
-//            while ($process->isRunning()) {
-//                // waiting for process to finish
-//            }
+            while ($process->isRunning()) {
+                // waiting for process to finish
+            }
 
             $time_end = microtime(true);
             $time = $time_end - $time_start;
