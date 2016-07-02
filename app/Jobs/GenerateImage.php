@@ -24,7 +24,7 @@ class GenerateImage extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Image $image, array $options)
+    public function __construct(Image $image)
     {
         $this->image = $image;
         $this->styles = $image->styles();
