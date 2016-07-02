@@ -21,7 +21,7 @@ class CreateImage extends Migration
             $table->string('rendered');
             $table->integer('style');
             $table->integer('size');
-            $table->timestamp('generate_time');
+            $table->integer('generate_time');
             $table->boolean('colors')->default(false);
             $table->string('type');
             $table->boolean('is_done')->default(false);
