@@ -33,3 +33,18 @@ Route::get('/exec', [
 Route::get('/styles', [
     'uses' => '\App\Http\Controllers\ImageController@styles'
 ]);
+
+Route::get('/arr', function ()
+{
+    $styles = (new App\Models\Image)->styles();
+
+    $id = '1';
+
+    foreach($styles as $style) {
+        if($style['id'] == $id) {
+            return true;
+        }
+
+        return false;
+    }
+});

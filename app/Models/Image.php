@@ -64,49 +64,70 @@ class Image extends Eloquent
     public function styles()
     {
         return [
-            '1' => [
+            [
+                'id' => '1',
                 'image' => resource_path('styles/1.jpg'),
-                'thumb' => '',
+                'thumb' => url('styles/1_thumb.jpg'),
                 'title' => 'Style #1'
             ],
-            '2' => [
+            [
+                'id' => '2',
                 'image' => resource_path('styles/2.jpg'),
+                'thumb' => url('styles/2_thumb.jpg'),
                 'title' => 'Style #2'
             ],
-            '3' => [
+            [
+                'id' => '3',
                 'image' => resource_path('styles/3.jpg'),
+                'thumb' => url('styles/3_thumb.jpg'),
                 'title' => 'Style #3'
             ],
-            '4' => [
+            [
+                'id' => '4',
                 'image' => resource_path('styles/4.jpg'),
+                'thumb' => url('styles/4_thumb.jpg'),
                 'title' => 'Style #4'
             ],
-            '5' => [
+            [
+                'id' => '5',
                 'image' => resource_path('styles/5.jpg'),
+                'thumb' => url('styles/5_thumb.jpg'),
                 'title' => 'Style #5'
             ],
-            '6' => [
+            [
+                'id' => '6',
                 'image' => resource_path('styles/6.jpg'),
+                'thumb' => url('styles/6_thumb.jpg'),
                 'title' => 'Style #6'
             ],
-            '7' => [
+            [
+                'id' => '7',
                 'image' => resource_path('styles/7.jpg'),
+                'thumb' => url('styles/7_thumb.jpg'),
                 'title' => 'Style #7'
             ],
-            '8' => [
+            [
+                'id' => '8',
                 'image' => resource_path('styles/8.jpg'),
+                'thumb' => url('styles/8_thumb.jpg'),
                 'title' => 'Style #8'
             ],
-            '9' => [
+            [
+                'id' => '9',
                 'image' => resource_path('styles/9.jpg'),
+                'thumb' => url('styles/9_thumb.jpg'),
                 'title' => 'Style #9'
             ],
-            '10' => [
+            [
+                'id' => '10',
                 'image' => resource_path('styles/10.jpg'),
+                'thumb' => url('styles/10_thumb.jpg'),
                 'title' => 'Style #10'
             ],
-            '11' => [
+            [
+                'id' => '11',
                 'image' => resource_path('styles/11.jpg'),
+                'thumb' => url('styles/11_thumb.jpg'),
                 'title' => 'Style #11'
             ],
         ];
