@@ -44,8 +44,6 @@ class GenerateImage extends Job implements ShouldQueue
             if($style['id'] == $this->image->style) {
                 $style = $style['image'];
             }
-
-            return false;
         }
 
         $colors = ($this->image->colors) ? '1' : '0';
