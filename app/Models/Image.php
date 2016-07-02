@@ -17,7 +17,17 @@ class Image extends Eloquent
      * @var array
      */
     protected $fillable = [
-        'is_done', 'type', 'size', 'path', 'name', 'ext', 'relative_path'
+        'is_done',
+        'type',
+        'size',
+        'path',
+        'name',
+        'ext',
+        'relative_path',
+        'style',
+        'generate_time',
+        'rendered',
+        'colors'
     ];
 
     /**
@@ -33,7 +43,9 @@ class Image extends Eloquent
      * @var array
      */
     protected $casts = [
-        'status' => 'integer'
+        'is_done' => 'boolean',
+        'colors' => 'boolean',
+        'style' => 'integer'
     ];
 
     private $upload_dir = 'photo';
@@ -48,12 +60,13 @@ class Image extends Eloquent
             $entity->deleteFile($entity, false);
         });
     }
-    
+
     public function styles()
     {
         return [
             '1' => [
                 'image' => resource_path('styles/1.jpg'),
+                'thumb' => '',
                 'title' => 'Style #1'
             ],
             '2' => [

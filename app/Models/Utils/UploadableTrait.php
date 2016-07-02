@@ -32,18 +32,27 @@ trait UploadableTrait
         try {
             Storage::put($fullpath, File::get($file));
 
-            $file = $this->create([
+//            $file = $this->create([
+//                'path' => public_path('files/'.$path),
+//                'relative_path' => 'files/'.$path,
+//                'name' => $name,
+//                'size' => $file->getClientSize(),
+//                'ext' => $ext,
+//                'type' => $file->getClientMimeType(),
+//            ]);
+//
+//            if($file) {
+//                return $file->id;
+//            }
+//
+            return [
                 'path' => public_path('files/'.$path),
                 'relative_path' => 'files/'.$path,
                 'name' => $name,
                 'size' => $file->getClientSize(),
                 'ext' => $ext,
                 'type' => $file->getClientMimeType(),
-            ]);
-
-            if($file) {
-                return $file->id;
-            }
+            ];
 
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
@@ -64,7 +73,7 @@ trait UploadableTrait
 
         // Deleting rendered file
         try {
-            Storage::delete($file->path . $file->name . '_rendered' . $file->ext);
+            Storage::delete($file->path . $file->rendered . $file->ext);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),

@@ -57,14 +57,18 @@ class ImageController extends Controller
                 'style' => $request->get('style')
             ];
 
-            // add task to queue
-            $this->dispatch(new GenerateImage(Image::find($file), $options));
+            $source = $image->create(array_merge($file, $options));
 
-            return response()->json([
-                'url' => route('image.show', [
-                    'id' => $file
-                ])
-            ]);
+            if($source) {
+                // add task to queue
+                $this->dispatch(new GenerateImage($source));
+
+                return response()->json([
+                    'url' => route('image.show', [
+                        'id' => $source->id
+                    ])
+                ]);
+            }
         } catch (\Exception $e) {
             return response()->json([
                 'message' => $e->getMessage()
@@ -80,7 +84,7 @@ class ImageController extends Controller
             if($image->is_done) {
                 return response()->json([
                     'status' => 'is_ready',
-                    'file' => url($image->relative_path.$image->name.'_rendered'.$image->ext)
+                    'file' => url($image->relative_path.$image->rendered.$image->ext)
                 ]);
             }
 

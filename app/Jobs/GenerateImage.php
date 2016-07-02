@@ -27,7 +27,6 @@ class GenerateImage extends Job implements ShouldQueue
     public function __construct(Image $image, array $options)
     {
         $this->image = $image;
-        $this->options = $options;
         $this->styles = $image->styles();
         $this->size = $image::SIZE;
     }
@@ -39,11 +38,13 @@ class GenerateImage extends Job implements ShouldQueue
      */
     public function handle()
     {
-        $style = $this->styles[$this->options['style']]['image'];
-        $colors = ($this->options['colors']) ? '1' : '0';
+        $style = $this->styles[$this->image->style]['image'];
+        $colors = ($this->image->colors) ? '1' : '0';
+
+        $filename = (new Image())->generateName();
 
         $content = $this->image->path . $this->image->name . $this->image->ext;
-        $output = $this->image->path . $this->image->name . '_rendered' . $this->image->ext;
+        $output = $this->image->path . $filename . $this->image->ext;
 
         $path = getcwd();
         chdir(public_path());
@@ -54,6 +55,8 @@ class GenerateImage extends Job implements ShouldQueue
         $process = new Process($cmd);
 
         try {
+            $time_start = microtime(true);
+
             $process->start(function ($type, $buffer) {
                 if (Process::ERR === $type) {
                     echo 'ERR > '.$buffer;
@@ -62,14 +65,20 @@ class GenerateImage extends Job implements ShouldQueue
                 }
             });
 
-            while ($process->isRunning()) {
-                // waiting for process to finish
-            }
+//            while ($process->isRunning()) {
+//                // waiting for process to finish
+//            }
 
-            if(file_exists($output)) {
-                $this->image->is_done = 1;
+            $time_end = microtime(true);
+            $time = $time_end - $time_start;
+
+            if($process->isSuccessful() && file_exists($output)) {
+                $this->image->rendered = $filename;
+                $this->image->generate_time = $time;
+                $this->image->is_done = true;
                 $this->image->save();
             }
+
 
             echo $process->getOutput();
 
