@@ -38,13 +38,16 @@ class GenerateImage extends Job implements ShouldQueue
      */
     public function handle()
     {
-        $style = '';
+        $styleimage = '';
 
         foreach ($this->styles as $style) {
             if($style['id'] == $this->image->style) {
-                $style = $style['image'];
+                $styleimage = $style['image'];
             }
         }
+
+        $style = $styleimage;
+        unset($styleimage);
 
         $colors = ($this->image->colors) ? '1' : '0';
 
