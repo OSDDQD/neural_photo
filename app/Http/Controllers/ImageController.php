@@ -96,7 +96,17 @@ class ImageController extends Controller
 
     public function styles()
     {
-        return response()->json($this->styles);
+        $response = [];
+
+        foreach($this->styles as $style) {
+            $response[] = [
+                'id' => $style['id'],
+                'thumb' => $style['thumb'],
+                'title' => $style['title']
+            ];
+        }
+
+        return response()->json($response);
     }
 
     public function searchStyle($id)
