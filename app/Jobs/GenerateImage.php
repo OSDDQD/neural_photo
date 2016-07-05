@@ -67,7 +67,11 @@ class GenerateImage extends Job implements ShouldQueue
         try {
             $time_start = microtime(true);
 
-            $process->start(function ($type, $buffer) {
+            $process->start();
+
+            print 'start waiting';
+
+            $process->wait(function ($type, $buffer) {
                 if (Process::ERR === $type) {
                     echo 'ERR > '.$buffer;
                 } else {
@@ -75,22 +79,18 @@ class GenerateImage extends Job implements ShouldQueue
                 }
             });
 
-            while ($process->isRunning()) {
-                // waiting for process to finish
-            }
+            print 'end waiting';
 
             $time_end = microtime(true);
             $time = $time_end - $time_start;
 
             if($process->isSuccessful() && file_exists($output)) {
+                print 'record';!
                 $this->image->rendered = $filename;
                 $this->image->generate_time = $time;
                 $this->image->is_done = true;
                 $this->image->save();
             }
-
-
-            echo $process->getOutput();
 
             chdir($path);
 
