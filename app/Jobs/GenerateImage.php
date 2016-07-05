@@ -56,9 +56,6 @@ class GenerateImage extends Job implements ShouldQueue
         $content = $this->image->path . $this->image->name . $this->image->ext;
         $output = $this->image->path . $filename . $this->image->ext;
 
-//        $path = getcwd();
-//        chdir(public_path());
-
         $cmd = './neu.sh ' . $style . ' ' . $content . ' ' . $output . ' ' . $this->size . ' ' . $colors;
 
         // Set bash is default shell for exec
@@ -68,7 +65,7 @@ class GenerateImage extends Job implements ShouldQueue
         try {
             $time_start = microtime(true);
 
-            $process->run();
+            $process->start();
 
             $process->wait(function ($type, $buffer) {
                 if (Process::ERR === $type) {
@@ -82,14 +79,11 @@ class GenerateImage extends Job implements ShouldQueue
             $time = $time_end - $time_start;
 
             if($process->isSuccessful() && file_exists($output)) {
-                print 'record';
                 $this->image->rendered = $filename;
                 $this->image->generate_time = $time;
                 $this->image->is_done = true;
                 $this->image->save();
             }
-
-//            chdir($path);
 
         } catch (ProcessFailedException $e) {
             echo $e->getMessage();
