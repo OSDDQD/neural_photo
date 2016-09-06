@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Jobs\Job;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -22,7 +21,8 @@ class GenerateImage extends Job implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param \App\Models\Image
+     *
      */
     public function __construct(Image $image)
     {

@@ -130,6 +130,72 @@ class Image extends Eloquent
                 'thumb' => url('static/styles/11.jpg'),
                 'title' => 'Style #11'
             ],
+            [
+                'id' => '12',
+                'image' => resource_path('styles/12.jpg'),
+                'thumb' => url('static/styles/12.jpg'),
+                'title' => 'Style #12'
+            ],
+            [
+                'id' => '13',
+                'image' => resource_path('styles/13.jpg'),
+                'thumb' => url('static/styles/13.jpg'),
+                'title' => 'Style #13'
+            ],
+            [
+                'id' => '14',
+                'image' => resource_path('styles/14.jpg'),
+                'thumb' => url('static/styles/14.jpg'),
+                'title' => 'Style #14'
+            ],
+            [
+                'id' => '15',
+                'image' => resource_path('styles/15.jpg'),
+                'thumb' => url('static/styles/15.jpg'),
+                'title' => 'Style #15'
+            ],
+            [
+                'id' => '16',
+                'image' => resource_path('styles/16.jpg'),
+                'thumb' => url('static/styles/16.jpg'),
+                'title' => 'Style #16'
+            ],
+            [
+                'id' => '17',
+                'image' => resource_path('styles/17.jpg'),
+                'thumb' => url('static/styles/17.jpg'),
+                'title' => 'Style #17'
+            ],
+            [
+                'id' => '18',
+                'image' => resource_path('styles/18.jpg'),
+                'thumb' => url('static/styles/18.jpg'),
+                'title' => 'Style #18'
+            ],
+            [
+                'id' => '19',
+                'image' => resource_path('styles/19.jpg'),
+                'thumb' => url('static/styles/19.jpg'),
+                'title' => 'Style #19'
+            ],
+            [
+                'id' => '20',
+                'image' => resource_path('styles/20.jpg'),
+                'thumb' => url('static/styles/20.jpg'),
+                'title' => 'Style #20'
+            ],
+            [
+                'id' => '21',
+                'image' => resource_path('styles/21.jpg'),
+                'thumb' => url('static/styles/21.jpg'),
+                'title' => 'Style #21'
+            ],
+            [
+                'id' => '22',
+                'image' => resource_path('styles/22.jpg'),
+                'thumb' => url('static/styles/22.jpg'),
+                'title' => 'Style #22'
+            ],
         ];
     }
 }
